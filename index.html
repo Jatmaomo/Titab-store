@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titab Store - Premium Natural Products</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F6F52',
+                        secondary: '#739072',
+                        accent: '#86A789',
+                        light: '#D2E3C8',
+                        dark: '#3A4D39'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    screens: {
+                        'xs': '480px',
+                        '3xl': '1600px',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'slide-down': 'slideDown 0.8s ease-out',
+                        'slide-right': 'slideRight 0.8s ease-out',
+                        'slide-left': 'slideLeft 0.8s ease-out',
+                        'zoom-in': 'zoomIn 0.5s ease-out',
+                        'tilt': 'tilt 10s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideRight: {
+                            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        zoomIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        tilt: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(79, 111, 82, 0.9) 0%, rgba(115, 144, 114, 0.9) 100%);
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #4F6F52;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .floating-btn {
+            box-shadow: 0 4px 15px rgba(79, 111, 82, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background-color: #4F6F52;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .rating-star {
+            color: #FFD700;
+        }
+        
+        .product-slider {
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .product-slide {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+        
+        /* Hide scrollbar */
+        .product-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .product-slider {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Leaf animation */
+        .leaf-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .leaf-float.delay-1 {
+            animation-delay: 0.5s;
+        }
+        
+        .leaf-float.delay-2 {
+            animation-delay: 1s;
+        }
+        
+        .leaf-float.delay-3 {
+            animation-delay: 1.5s;
+        }
+        
+        /* Pulse animation for CTA */
+        .pulse-cta {
+            animation: pulse-slow 2s infinite;
+        }
+        
+        /* Bounce animation for floating buttons */
+        .bounce-btn {
+            animation: bounce-slow 3s infinite;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4F6F52;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3A4D39;
+        }
+        
+        /* Loading animation */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #D2E3C8;
+            border-bottom-color: #4F6F52;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Hover effects */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Gradient text */
+        .text-gradient {
+            background: linear-gradient(45deg, #4F6F52, #86A789);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .product-slide {
+                width: 85%;
+                min-width: 85%;
+            }
+            .testimonial-card {
+                padding: 1.25rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .floating-btn {
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.25rem;
+            }
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .product-card {
+                margin-bottom: 1rem;
+            }
+            .product-card img {
+                height: 120px;
+            }
+            .product-card h3 {
+                font-size: 1rem;
+            }
+            .product-card button {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+            .product-card .price {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            /* iPad portrait */
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            /* iPad landscape */
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Loading screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center transition-opacity duration-300">
+        <div class="text-center">
+            <div class="loader mx-auto mb-4"></div>
+            <h2 class="text-xl font-bold text-primary">Titab Store</h2>
+            <p class="text-gray-600">Loading natural goodness...</p>
+        </div>
+    </div>
+
+    <!-- Floating leaves decoration -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden hidden md:block">
+        <i class="fas fa-leaf text-light opacity-20 text-4xl absolute top-1/4 left-10 leaf-float"></i>
+        <i class="fas fa-leaf text-light opacity-20 text-3xl absolute top-1/3 right-20 leaf-float delay-1"></i>
+        <i class="fas fa-leaf text-light opacity-20 text-5xl absolute bottom-1/4 left-1/4 leaf-float delay-2"></i>
+        <i class="fas fa-leaf text-light opacity-20 text-2xl absolute bottom-1/3 right-1/3 leaf-float delay-3"></i>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 animate-slide-down">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-leaf text-primary text-2xl animate-tilt"></i>
+                <a href="#" class="text-2xl font-bold text-primary hover:text-dark transition">Titab Store</a>
+            </div>
+            
+            <nav class="hidden md:flex space-x-4 lg:space-x-8">
+                <a href="#" class="nav-link text-gray-700 hover:text-primary font-medium">Home</a>
+                <a href="#products" class="nav-link text-gray-700 hover:text-primary font-medium">Products</a>
+                <a href="#testimonials" class="nav-link text-gray-700 hover:text-primary font-medium">Testimonials</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-primary font-medium">About</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="cart-btn" class="p-2 text-gray-600 hover:text-primary relative hover:animate-pulse">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-badge" class="cart-badge hidden">0</span>
+                    </button>
+                </div>
+                <button class="md:hidden p-2 text-gray-600 hover:text-primary" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4 md:hidden" id="mobile-menu">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-leaf text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-primary">Titab Store</span>
+                </div>
+                <button id="close-mobile-menu" class="p-2 text-gray-600 hover:text-primary">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex flex-col space-y-4">
+                <a href="#" class="py-2 text-gray-700 hover:text-primary font-medium border-b border-gray-100" onclick="closeMobileMenu()">Home</a>
+                <a href="#products" class="py-2 text-gray-700 hover:text-primary font-medium border-b border-gray-100" onclick="closeMobileMenu()">Products</a>
+                <a href="#testimonials" class="py-2 text-gray-700 hover:text-primary font-medium border-b border-gray-100" onclick="closeMobileMenu()">Testimonials</a>
+                <a href="#about" class="py-2 text-gray-700 hover:text-primary font-medium border-b border-gray-100" onclick="closeMobileMenu()">About</a>
+                <a href="#contact" class="py-2 text-gray-700 hover:text-primary font-medium border-b border-gray-100" onclick="closeMobileMenu()">Contact</a>
+            </div>
+            
+            <div class="mt-8 pt-4 border-t border-gray-100">
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <button id="mobile-cart-btn" class="p-2 text-gray-600 hover:text-primary relative">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="mobile-cart-badge" class="cart-badge hidden">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero hero-gradient text-white py-16 md:py-24 lg:py-32 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center opacity-10"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 animate-slide-up">Premium Natural Products</h1>
+            <p class="text-xl sm:text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-slide-up delay-100">Organic wellness solutions for a healthier lifestyle</p>
+            <div class="animate-slup delay-200 flex flex-col sm:flex-row justify-center gap-3">
+                <button onclick="scrollToProducts()" class="bg-white hover:bg-gray-100 text-primary font-bold py-3 px-6 sm:px-8 rounded-full text-lg transition hover-scale pulse-cta">
+                    Shop Now
+                </button>
+                <button onclick="scrollToTestimonials()" class="bg-transparent hover:bg-white hover:bg-opacity-10 border-2 border-white text-white font-bold py-3 px-6 sm:px-8 rounded-full text-lg transition hover-scale">
+                    See Reviews
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-12 md:py-16 bg-white" id="products">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 md:mb-12 animate-fade-in">
+                <span class="text-primary font-semibold">Our Collection</span>
+                <h2 class="text-3xl font-bold text-gray-800 mt-2">Premium Natural Products</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <!-- Mobile Product Slider -->
+            <div class="md:hidden mb-8 -mx-4">
+                <div class="product-slider flex overflow-x-auto pb-4 animate-slide-right">
+                    <div class="flex">
+                        <div class="product-slide px-4 w-64">
+                            <div class="product-card bg-white h-full">
+                                <div class="h-40 bg-gray-100 flex items-center justify-center p-4">
+                                    <img src="https://i.postimg.cc/bYQpdtmx/1000041313-removebg-preview.png" alt="Date Syrup 250ml" class="max-h-full max-w-full object-contain">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="font-bold text-lg truncate">Date Syrup 250ml</h3>
+                                        <span class="text-gray-500 text-sm">250ml</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-bold text-xl text-primary">₦3000</span>
+                                        <button onclick="addToCart(1)" class="bg-primary hover:bg-dark text-white py-2 px-4 rounded transition flex items-center hover-scale">
+                                            <i class="fas fa-cart-plus mr-2"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-slide px-4 w-64">
+                            <div class="product-card bg-white h-full">
+                                <div class="h-40 bg-gray-100 flex items-center justify-center p-4">
+                                    <img src="https://i.postimg.cc/Cxp8kk0w/1000041314-removebg-preview.png" alt="Date Powder 300g" class="max-h-full max-w-full object-contain">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="font-bold text-lg truncate">Date Powder 300g</h3>
+                                        <span class="text-gray-500 text-sm">300g</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-bold text-xl text-primary">₦3,500</span>
+                                        <button onclick="addToCart(2)" class="bg-primary hover:bg-dark text-white py-2 px-4 rounded transition flex items-center hover-scale">
+                                            <i class="fas fa-cart-plus mr-2"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-slide px-4 w-64">
+                            <div class="product-card bg-white h-full">
+                                <div class="h-40 bg-gray-100 flex items-center justify-center p-4">
+                                    <img src="https://i.postimg.cc/C5NK8Bsx/1000041315-removebg-preview.png" alt="Carrot Oil 100ml" class="max-h-full max-w-full object-contain">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="font-bold text-lg truncate">Carrot Oil 100ml</h3>
+                                        <span class="text-gray-500 text-sm">100ml</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-bold text-xl text-primary">₦3,000</span>
+                                        <button onclick="addToCart(3)" class="bg-primary hover:bg-dark text-white py-2 px-4 rounded transition flex items-center hover-scale">
+                                            <i class="fas fa-cart-plus mr-2"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-slide px-4 w-64">
+                            <div class="product-card bg-white h-full">
+                                <div class="h-40 bg-gray-100 flex items-center justify-center p-4">
+                                    <img src="https://i.postimg.cc/4d2Lxwrf/1000041316-removebg-preview.png" alt="Lemon Oil 100ml" class="max-h-full max-w-full object-contain">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="font-bold text-lg truncate">Lemon Oil 100ml</h3>
+                                        <span class="text-gray-500 text-sm">100ml</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-bold text-xl text-primary">₦3,000</span>
+                                        <button onclick="addToCart(4)" class="bg-primary hover:bg-dark text-white py-2 px-4 rounded transition flex items-center hover-scale">
+                                            <i class="fas fa-cart-plus mr-2"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desktop Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" id="products-container">
+                <!-- Product cards will be added here dynamically -->
+            </div>
+            
+            <div class="text-center mt-8 md:mt-12 animate-fade-in">
+                <button onclick="scrollToTestimonials()" class="bg-primary hover:bg-dark text-white font-bold py-3 px-6 md:px-8 rounded-lg transition inline-flex items-center hover-scale">
+                    <i class="fas fa-star mr-2"></i> See Customer Reviews
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-12 md:py-16 bg-gray-50" id="testimonials">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 md:mb-12 animate-fade-in">
+                <span class="text-primary font-semibold">Customer Feedback</span>
+                <h2 class="text-3xl font-bold text-gray-800 mt-2">What Our Customers Say</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12" id="testimonials-container">
+                <!-- Testimonial cards will be added here -->
+                <div class="testimonial-card p-4 md:p-6 rounded-lg animate-slide-up">
+                    <div class="flex items-center mb-4">
+                        <div class="rating-star text-xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"The Date Syrup is amazing! It's become a staple in my morning routine. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Amina K.</h4>
+                            <p class="text-gray-500 text-sm">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card p-4 md:p-6 rounded-lg animate-slide-up delay-100">
+                    <div class="flex items-center mb-4">
+                        <div class="rating-star text-xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"The Carrot Oil has done wonders for my skin. I've noticed a significant improvement in just 2 weeks."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Chinedu O.</h4>
+                            <p class="text-gray-500 text-sm">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card p-4 md:p-6 rounded-lg animate-slide-up delay-200">
+                    <div class="flex items-center mb-4">
+                        <div class="rating-star text-xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Excellent customer service and fast delivery. The Coconut Oil is pure and exactly as described."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Fatima B.</h4>
+                            <p class="text-gray-500 text-sm">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center animate-fade-in">
+                <button onclick="openReviewModal()" class="bg-primary hover:bg-dark text-white font-bold py-3 px-6 rounded-lg transition inline-flex items-center hover-scale">
+                    <i class="fas fa-plus mr-2"></i> Add Your Review
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-12 md:py-16 bg-white" id="about">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8 md:mb-12 animate-fade-in">
+                    <span class="text-primary font-semibold">Our Story</span>
+                    <h2 class="text-3xl font-bold text-gray-800 mt-2">About Titab Store</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div class="animate-slide-right">
+                        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="About Titab Store" class="rounded-lg shadow-lg w-full hover-scale">
+                    </div>
+                    <div class="animate-slide-left">
+                        <p class="text-gray-700 mb-4 md:mb-6">Titab Store is committed to providing natural wellness products like oils, powders, and syrups. We believe in the power of nature to promote health and wellbeing.</p>
+                        <p class="text-gray-700 mb-4 md:mb-6">Our products are 100% organic, ethically sourced, and made with love. We carefully select each ingredient to ensure the highest quality for our customers.</p>
+                        <div class="space-y-3 md:space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                <span class="text-gray-700">Premium quality ingredients</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                <span class="text-gray-700">Ethically sourced materials</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                <span class="text-gray-700">No artificial additives</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-12 md:py-16 bg-gray-50" id="contact">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 md:mb-12 animate-fade-in">
+                <span class="text-primary font-semibold">Get In Touch</span>
+                <h2 class="text-3xl font-bold text-gray-800 mt-2">Contact Us</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 md:gap-8">
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm animate-slide-right">
+                    <h3 class="text-xl font-bold mb-4 md:mb-6 text-primary">Send us a message</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Your Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-dark text-white font-bold py-3 px-6 rounded-lg transition hover-scale">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="animate-slide-left">
+                    <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm h-full">
+                        <h3 class="text-xl font-bold mb-4 md:mb-6 text-primary">Contact Information</h3>
+                        <div class="space-y-4 md:space-y-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-globe text-primary mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Location</h4>
+                                    <p class="text-gray-600">Online Store - Nationwide Delivery</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-primary mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Phone</h4>
+                                    <p class="text-gray-600">07038005393</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-primary mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Email</h4>
+                                    <p class="text-gray-600">jatmaomo@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 md:mt-8">
+                            <h4 class="font-bold text-gray-800 mb-3 md:mb-4">Business Hours</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Monday - Sunday</span>
+                                    <span class="text-gray-800 font-medium">24/7 Online</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Customer Support</span>
+                                    <span class="text-gray-800 font-medium">9:00 AM - 9:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16 bg-primary text-white animate-fade-in">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <p class="max-w-2xl mx-auto mb-6 md:mb-8 text-light">Stay updated with our latest products, offers, and wellness tips.</p>
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button type="submit" class="bg-dark hover:bg-gray-800 text-white font-bold py-3 px-4 md:px-6 rounded-r-lg transition hover-scale">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8 md:py-12 animate-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-leaf mr-2 animate-pulse"></i> Titab Store
+                    </h3>
+                    <p class="text-gray-300">Your source for natural wellness products. 100% organic and made with love.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-300 hover:text-white hover:animate-bounce"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white hover:animate-bounce"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white hover:animate-bounce"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="#products" class="text-gray-300 hover:text-white transition">Products</a></li>
+                        <li><a href="#testimonials" class="text-gray-300 hover:text-white transition">Testimonials</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="#contact, class="text-gray-300 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Products</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Oils</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Powders</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Syrups</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Special Offers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>07038005393</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>jatmaomo@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-globe mt-1 mr-2"></i>
+                            <span>Online Store - Nationwide Delivery</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2023 Titab Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Review Modal -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay" id="review-modal">
+        <div class="bg-white rounded-lg p-4 md:p-6 max-w-md w-full mx-4 animate-zoom-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Add Your Review</h3>
+                <button onclick="closeReviewModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="review-form" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 mb-2">Your Rating</label>
+                    <div class="flex space-x-1 text-2xl" id="rating-stars">
+                        <i class="far fa-star rating-star cursor-pointer" data-rrating="1"></i>
+                        <i class="far fa-star rating-star cursor-pointer" data-rating="2"></i>
+                        <i class="far fa-star rating-star cursor-pointer" data-rating="3"></i>
+                        <i class="far fa-star rating-star cursor-pointer" data-rating="4"></i>
+                        <i class="far fa-star rating-star cursor-pointer" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rating-value" value="0">
+                </div>
+                
+                <div>
+                    <label for="review-name" class="block text-gray-700 mb-2">Your Name</label>
+                    <input type="text" id="review-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label for="review-text" class="block text-gray-700 mb-2">Your Review</label>
+                    <textarea id="review-text" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                </div>
+                
+                <div>
+                    <label for="review-product" class="block text-gray-700 mb-2">Product Reviewed</label>
+                    <select id="review-product" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        <option value="">Select a product</option>
+                        <option value="Date Syrup 250ml">Date Syrup 250ml</option>
+                        <option value="Date Powder 300g">Date Powder 300g</option>
+                        <option value="Carrot Oil 100ml">Carrot Oil 100ml</option>
+                        <option value="Lemon Oil 100ml">Lemon Oil 100ml</option>
+                        <option value="Avocado Oil 100ml">Avocado Oil 100ml</option>
+                        <option value="Carrot Oil 50ml">Carrot Oil 50ml</option>
+                        <option value="Avocado Oil 50ml">Avocado Oil 50ml</option>
+                        <option value="Coconut Oil 200ml">Coconut Oil 200ml</option>
+                        <option value="Coconut Oil 100ml">Coconut Oil 100ml</option>
+                        <option value="Coconut Oil 50ml">Coconut Oil 50ml</option>
+                        <option value="Lemon Oil 50ml">Lemon Oil 50ml</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full bg-primary hover:bg-dark text-white font-bold py-3 px-6 rounded-lg transition hover-scale">
+                    Submit Review
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay" id="cart-modal">
+        <div class="bg-white rounded-lg p-4 md:p-6 max-w-md w-full mx-4 max-h-[80vh] flex flex-col animate-zoom-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Your Cart</h3>
+                <button onclick="closeCartModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="flex-grow overflow-y-auto mb-4" id="cart-items-container">
+                <!-- Cart items will be added here -->
+                <div class="text-center py-8 text-gray-500" id="empty-cart-message">
+                    <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="font-bold">Total:</span>
+                    <span class="font-bold text-primary" id="cart-total">₦0</span>
+                </div>
+                
+                <button onclick="openCheckoutModal()" class="w-full bg-primary hover:bg-dark text-white font-bold py-3 px-6 rounded-lg transition disabled:opacity-50 hover-scale" id="checkout-btn" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay" id="checkout-modal">
+        <div class="bg-white rounded-lg p-4 md:p-6 max-w-md w-full mx-4 animate-zoom-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Checkout</h3>
+                <button onclick="closeCheckoutModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="checkout-form" class="space-y-4">
+                <div>
+                    <label for="customer-name" class="block text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="customer-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+                
+                <div>
+                    <label for="customer-phone" class="block text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" id="customer-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+                
+                <div>
+                    <label for="customer-address, class="block text-gray-700 mb-2">Delivery Address</label>
+                    <textarea id="customer-address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required></textarea>
+                </div>
+                
+                <div>
+                    <label for="customer-note" class="block text-gray-700 mb-2">Additional Notes (Optional)</label>
+                    <textarea id="customer-note" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold">Order Total:</span>
+                        <span class="font-bold text-primary" id="checkout-total">₦0</span>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary hover:bg-dark text-white font-bold py-3 px-6 rounded-lg transition flex items-center justify-center hover-scale">
+                        <i class="fab fa-whatsapp mr-2"></i> Complete Order on WhatsApp
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/2347038005393" class="fixed bottom-6 right-6 bg-primary hover:bg-dark text-white w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-2xl shadow-lg floating-btn bounce-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Floating Review Button -->
+    <button onclick="openReviewModal()" class="fixed bottom-24 right-6 bg-white hover:bg-gray-100 text-primary w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-2xl shadow-lg floating-btn bounce-btn">
+        <i class="fas fa-star"></i>
+    </button>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Date Syrup 250ml",
+                price: 3000,
+                size: "250ml",
+                image: "https://i.postimg.cc/bYQpdtmx/1000041313-removebg-preview.png",
+                category: "Syrups"
+            },
+            {
+                id: 2,
+                name: "Date Powder 300g",
+                price: 3500,
+                size: "300g",
+                image: "https://i.postimg.cc/Cxp8kk0w/1000041314-removebg-preview.png",
+                category: "Powders"
+            },
+            {
+                id: 3,
+                name: "Carrot Oil 100ml",
+                price: 3000,
+                size: "100ml",
+                image: "https://i.postimg.cc/C5NK8Bsx/1000041315-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 4,
+                name: "Lemon Oil 100ml",
+                price: 3000,
+                size: "100ml",
+                image: "https://i.postimg.cc/4d2Lxwrf/1000041316-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 5,
+                name: "Avocado Oil 100ml",
+                price: 3000,
+                size: "100ml",
+                image: "https://i.postimg.cc/WpBRmbH2/1000041317-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 6,
+                name: "Carrot Oil 50ml",
+                price: 1500,
+                size: "50ml",
+                image: "https://i.postimg.cc/2SxPfd86/1000041318-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 7,
+                name: "Avocado Oil 50ml",
+                price: 1500,
+                size: "50ml",
+                image: "https://i.postimg.cc/2SCKTqFf/1000041320-removebg-preview-1.png",
+                category: "Oils"
+            },
+            {
+                id: 8,
+                name: "Coconut Oil 200ml",
+                price: 5000,
+                size: "200ml",
+                image: "https://i.postimg.cc/CKQrFcyF/1000041321-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 9,
+                name: "Coconut Oil 100ml",
+                price: 2500,
+                size: "100ml",
+                image: "https://i.postimg.cc/FK7Gn0Yw/1000041322-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 10,
+                name: "Coconut Oil 50ml",
+                price: 1300,
+                size: "50ml",
+                image: "https://i.postimg.cc/zfbSk5Mr/1000041323-removebg-preview.png",
+                category: "Oils"
+            },
+            {
+                id: 11,
+                name: "Lemon Oil 50ml",
+                price: 1500,
+                size: "50ml",
+                image: "https://i.postimg.cc/6Qjg89Zx/1000041319-removebg-preview.png",
+                category: "Oils"
+            }
+        ];
+
+        // Cart data
+        let cart = [];
+        
+        // DOM elements
+        const productsContainer = document.getElementById('products-container');
+        const testimonialsContainer = document.getElementById('testimonials-container');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMobileMenuBtn = document.getElementById('close-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const reviewModal = document.getElementById('review-modal');
+        const ratingStars = document.querySelectorAll('#rating-stars i');
+        const ratingValue = document.getElementById('rating-value');
+        const reviewForm = document.getElementById('review-form');
+        const cartBtn = document.getElementById('cart-btn');
+        const mobileCartBtn = document.getElementById('mobile-cart-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutTotal = document.getElementById('checkout-total');
+        const cartBadge = document.getElementById('cart-badge');
+        const mobileCartBadge = document.getElementById('mobile-cart-badge');
+        const loadingScreen = document.getElementById('loading-screen');
+
+        // Render products
+        function renderProducts() {
+            productsContainer.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card bg-white h-full animate-fade-in hover-scale';
+                
+                productCard.innerHTML = `
+                    <div class="h-40 bg-gray-100 flex items-center justify-center p-4">
+                        <img src="${product.image}" alt="${product.name}" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg truncate">${product.name}</h3>
+                            <span class="text-gray-500 text-sm">${product.size}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xl text-primary">₦${product.price.toLocaleString()}</span>
+                            <button onclick="addToCart(${product.id})" class="bg-primary hover:bg-dark text-white py-2 px-4 rounded transition flex items-center hover-scale">
+                                <i class="fas fa-cart-plus mr-2"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    image: product.image
+                });
+            }
+            
+            updateCart();
+            showNotification(`${product.name} added to cart`);
+            openCartModal();
+        }
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart badge
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.classList.remove('hidden');
+                mobileCartBadge.textContent = totalItems;
+                mobileCartBadge.classList.remove('hidden');
+                checkoutBtn.disabled = false;
+            } else {
+                cartBadge.classList.add('hidden');
+                mobileCartBadge.classList.add('hidden');
+                checkoutBtn.disabled = true;
+            }
+            
+            // Update cart items
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartTotal.textContent = '₦0';
+                return;
+            }
+            
+            emptyCartMessage.classList.add('hidden');
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex items-center py-4 border-b border-gray-200';
+                cartItem.innerHTML = `
+                    <div class="w-16 h-16 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
+                        <img src="${item.image}" alt="${item.name}" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="ml-4 flex-grow">
+                        <h4 class="font-medium">${item.name}</h4>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="text-primary font-bold">₦${item.price.toLocaleString()}</span>
+                            <div class="flex items-center">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-l hover:bg-gray-100">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <span class="w-10 text-center border-t border-b border-gray-300 h-8 flex items-center justify-center">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-r hover:bg-gray-100">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="ml-4 text-gray-400 hover:text-red-500">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            cartTotal.textContent = `₦${total.toLocaleString()}`;
+            checkoutTotal.textContent = `₦${total.toLocaleString()}`;
+        }
+
+        // Update item quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== productId);
+                }
+                
+                updateCart();
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+            showNotification('Item removed from cart');
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-lg shadow-lg flex items-center animate-slide-up';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle mr-2"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Scroll to products section
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Scroll to testimonials section
+        function scrollToTestimonials() {
+            document.getElementById('testimonials').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Open review modal
+        function openReviewModal() {
+            reviewModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close review modal
+        function closeReviewModal() {
+            reviewModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open cart modal
+        function openCartModal() {
+            cartModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close cart modal
+        function closeCartModal() {
+            cartModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open checkout modal
+        function openCheckoutModal() {
+            checkoutModal.classList.remove('hidden');
+            cartModal.classList.add('hidden');
+        }
+
+        // Close checkout modal
+        function closeCheckoutModal() {
+            checkoutModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Submit review
+        function submitReview(e) {
+            e.preventDefault();
+            
+            const rating = parseInt(ratingValue.value);
+            const name = document.getElementById('review-name').value;
+            const text = document.getElementById('review-text').value;
+            const product = document.getElementById('review-product').value;
+            
+            if (!rating || !name || !text || !product) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            // Create new testimonial element
+            const testimonialCard = document.createElement('div');
+            testimonialCard.className = 'testimonial-card p-6 rounded-lg animate-zoom-in';
+            
+            // Generate stars HTML
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    starsHTML += '<i class="fas fa-star"></i>';
+                } else if (i - 0.5 <= rating) {
+                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    starsHTML += '<i class="far fa-star"></i>';
+                }
+            }
+            
+            testimonialCard.innerHTML = `
+                <div class="flex items-center mb-4">
+                    <div class="rating-star text-xl">
+                        ${starsHTML}
+                    </div>
+                </div>
+                <p class="text-gray-700 mb-4">"${text}"</p>
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                        <i class="fas fa-user text-gray-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">${name}</h4>
+                        <p class="text-gray-500 text-sm">${product}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Add testimonial to container
+            testimonialsContainer.prepend(testimonialCard);
+            
+            // Reset form
+            reviewForm.reset();
+            ratingValue.value = 0;
+            resetStars();
+            
+            // Close modal
+            closeReviewModal();
+            
+            // Show success message
+            showNotification('Thank you for your review!');
+        }
+
+        // Submit checkout form
+        function submitCheckout(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customer-name').value;
+            const phone = document.getElementById('customer-phone').value;
+            const address = document.getElementById('customer-address').value;
+            const note = document.getElementById('customer-note').value;
+            
+            if (!name || !phone || !address) {
+                alert('Please fill all required fields');
+                return;
+            }
+            
+            // Format WhatsApp message
+            let message = `*New Order from Titab Store Website*\n\n`;
+            message += `*Customer Name:* ${name}\n`;
+            message += `*Phone:* ${phone}\n`;
+            message += `*Delivery Address:* ${address}\n`;
+            
+            if (note) {
+                message += `*Additional Notes:* ${note}\n\n`;
+            }
+            
+            message += `*Order Details:*\n`;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.quantity} x ₦${item.price.toLocaleString()}) = ₦${(item.price * item.quantity).toLocaleString()}\n`;
+            });
+            
+            message += `\n*Total:* ₦${total.toLocaleString()}`;
+            
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/2347038005393?text=${encodedMessage}`;
+            
+            // Clear cart
+            cart = [];
+            updateCart();
+            
+            // Close modal
+            closeCheckoutModal();
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Show success message
+            showNotification('Order submitted successfully!');
+        }
+
+        // Set rating stars
+        function setRating(rating) {
+            ratingValue.value = rating;
+            
+            ratingStars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
+
+        // Reset stars to empty
+        function resetStars() {
+            ratingValue.value = 0;
+            ratingStars.forEach(star => {
+                star.classList.remove('fas');
+                star.classList.add('far');
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate loading
+            setTimeout(() => {
+                loadingScreen.classList.add('opacity-0');
+                setTimeout(() => loadingScreen.style.display = 'none', 300);
+            }, 1500);
+            
+            renderProducts();
+            
+            // Event listeners
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            closeMobileMenuBtn.addEventListener('click', closeMobileMenu);
+            cartBtn.addEventListener('click', openCartModal);
+            mobileCartBtn.addEventListener('click', openCartModal);
+            
+            // Rating stars
+            ratingStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = parseInt(star.getAttribute('data-rating'));
+                    setRating(rating);
+                });
+                
+                star.addEventListener('mouseover', () => {
+                    const rating = parseInt(star.getAttribute('data-rating'));
+                    
+                    ratingStars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.remove('far');
+                            s.classList.add('fas');
+                        } else {
+                            s.classList.remove('fas');
+                            s.classList.add('far');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', () => {
+                    const currentRating = parseInt(ratingValue.value);
+                    
+                    if (currentRating === 0) {
+                        resetStars();
+                    } else {
+                        setRating(currentRating);
+                    }
+                });
+            });
+            
+            // Form submissions
+            reviewForm.addEventListener('submit', submitReview);
+            checkoutForm.addEventListener('submit', submitCheckout);
+            
+            // Close modals when clicking outside
+            reviewModal.addEventListener('click', (e) => {
+                if (e.target === reviewModal) {
+                    closeReviewModal();
+                }
+            });
+            
+            cartModal.addEventListener('click', (e) => {
+                if (e.target === cartModal) {
+                    closeCartModal();
+                }
+            });
+            
+            checkoutModal.addEventListener('click', (e) => {
+                if (e.target === checkoutModal) {
+                    closeCheckoutModal();
+                }
+            });
+            
+            // Intersection Observer for scroll animations
+            const animateOnScroll = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            
+            const observer = new IntersectionObserver(animateOnScroll, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
